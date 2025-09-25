@@ -7,7 +7,7 @@ A simple setup script for development containers.
 You can run the installation script directly using curl:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/buko106/setup-devcontainer/master/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/buko106/setup-devcontainer/main/install.sh | bash
 ```
 
 ## Development Tools
