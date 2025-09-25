@@ -15,13 +15,13 @@ log() {
 # Main installation function
 main() {
     log "Setting up development container..."
-    
+
     # Add your installation steps here
     # For example:
     # - Install dependencies
     # - Configure environment
     # - Set up tools
-    
+
     log "Development container setup completed successfully!"
 }
 
