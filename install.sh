@@ -16,7 +16,8 @@ log() {
 main() {
     log "Setting up development container..."
 
-    # Add your installation steps here
+    log "installing claude code..."
+    curl -fsSL https://claude.ai/install.sh | bash
     # For example:
     # - Install dependencies
     # - Configure environment
