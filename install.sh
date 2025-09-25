@@ -15,15 +15,27 @@ log() {
 # Main installation function
 main() {
     log "Setting up development container..."
+    apt-get update
 
     log "installing claude code..."
     curl -fsSL https://claude.ai/install.sh | bash
+
+    log "installing volta..."
+    curl https://get.volta.sh | bash
+
     # For example:
     # - Install dependencies
     # - Configure environment
     # - Set up tools
 
     log "Development container setup completed successfully!"
+
+    apt-get install -y zsh
+    log "$(zsh --version) was installed!"
+
+    # shellcheck disable=SC2016
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >>"$HOME/.zshrc"
+    log "Added $HOME/.local/bin to PATH in .zshrc"
 }
 
 # Run main function
