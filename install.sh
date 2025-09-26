@@ -29,6 +29,10 @@ main() {
     log "Setting up static links to dotfiles..."
     ln -nfs ./setup-devcontainer/dotfiles/.zshrc ~/.zshrc
     ln -nfs ./setup-devcontainer/dotfiles/.p10k.zsh ~/.p10k.zsh
+
+    log "Setting global gitignore"
+    ln -nfs ./setup-devcontainer/dotfiles/.gitignore_global ~/.gitignore_global
+    git config --global core.excludesfile ~/.gitignore_global
 }
 
 # Run main function
