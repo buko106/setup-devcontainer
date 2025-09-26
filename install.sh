@@ -24,7 +24,9 @@ main() {
     chsh -s /bin/zsh
 
     log "Fetching setup-devcontainer repo..."
-    git clone https://github.com/buko106/setup-devcontainer.git
+    if [ ! -d "setup-devcontainer" ]; then
+        git clone https://github.com/buko106/setup-devcontainer.git
+    fi
 
     log "Setting up static links to dotfiles..."
     ln -nfs ./setup-devcontainer/dotfiles/.zshrc ~/.zshrc
