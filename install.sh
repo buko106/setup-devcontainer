@@ -15,27 +15,20 @@ log() {
 # Main installation function
 main() {
     log "Setting up development container..."
+
+    log "Installing essential packages..."
     apt-get update
+    apt-get install -y curl git zsh less
 
-    log "installing claude code..."
-    curl -fsSL https://claude.ai/install.sh | bash
+    log "Changing default shell to zsh..."
+    chsh -s /bin/zsh
 
-    log "installing volta..."
-    curl https://get.volta.sh | bash
+    log "Fetching setup-devcontainer repo..."
+    git clone https://github.com/buko106/setup-devcontainer.git
 
-    # For example:
-    # - Install dependencies
-    # - Configure environment
-    # - Set up tools
-
-    log "Development container setup completed successfully!"
-
-    apt-get install -y zsh
-    log "$(zsh --version) was installed!"
-
-    # shellcheck disable=SC2016
-    echo 'export PATH="$HOME/.local/bin:$PATH"' >>"$HOME/.zshrc"
-    log "Added $HOME/.local/bin to PATH in .zshrc"
+    log "Setting up static links to dotfiles..."
+    ln -nfs ./setup-devcontainer/dotfiles/.zshrc ~/.zshrc
+    ln -nfs ./setup-devcontainer/dotfiles/.p10k.zsh ~/.p10k.zsh
 }
 
 # Run main function
