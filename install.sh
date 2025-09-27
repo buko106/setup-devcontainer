@@ -24,16 +24,19 @@ main() {
     chsh -s /bin/zsh
 
     log "Fetching setup-devcontainer repo..."
-    if [ ! -d "setup-devcontainer" ]; then
-        git clone https://github.com/buko106/setup-devcontainer.git
+    SETUP_REPO_ROOT="$(pwd)/.setup-devcontainer"
+    if [ ! -d "$SETUP_REPO_ROOT" ]; then
+        git clone https://github.com/buko106/setup-devcontainer.git "$SETUP_REPO_ROOT"
     fi
+    git -C "$SETUP_REPO_ROOT" fetch
+    git -C "$SETUP_REPO_ROOT" checkout origin/HEAD
 
     log "Setting up static links to dotfiles..."
-    ln -nfs ./setup-devcontainer/dotfiles/.zshrc ~/.zshrc
-    ln -nfs ./setup-devcontainer/dotfiles/.p10k.zsh ~/.p10k.zsh
+    ln -nfs "$SETUP_REPO_ROOT/dotfiles/.zshrc" ~/.zshrc
+    ln -nfs "$SETUP_REPO_ROOT/dotfiles/.p10k.zsh" ~/.p10k.zsh
 
     log "Setting global gitignore"
-    ln -nfs ./setup-devcontainer/dotfiles/.gitignore_global ~/.gitignore_global
+    ln -nfs "$SETUP_REPO_ROOT/dotfiles/.gitignore_global" ~/.gitignore_global
     git config --global core.excludesfile ~/.gitignore_global
 }
 
