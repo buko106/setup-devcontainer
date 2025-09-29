@@ -35,9 +35,12 @@ main() {
     ln -nfs "$SETUP_REPO_ROOT/dotfiles/.zshrc" ~/.zshrc
     ln -nfs "$SETUP_REPO_ROOT/dotfiles/.p10k.zsh" ~/.p10k.zsh
 
-    log "Setting global gitignore"
+    log "Setting git settings..."
     ln -nfs "$SETUP_REPO_ROOT/dotfiles/.gitignore_global" ~/.gitignore_global
     git config --global core.excludesfile ~/.gitignore_global
+    git config --global core.quotepath false
+    git config --global core.pager "LESSCHARSET=utf-8 less"
+    git config --global push.autoSetupRemote true
 }
 
 # Run main function
