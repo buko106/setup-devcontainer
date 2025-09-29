@@ -18,6 +18,7 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light paulirish/git-open
 zinit light zsh-users/zsh-completions
+zinit load agkozak/zsh-z
 
 # history
 export HISTFILE=~/.zsh_history
