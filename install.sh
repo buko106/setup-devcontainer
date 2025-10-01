@@ -16,6 +16,14 @@ log() {
 main() {
     log "Setting up development container..."
 
+    if [ ! -f /.dockerenv ]; then
+        log "This script is intended to be run inside a Docker container."
+        exit 1
+    elif [ ! -f /etc/debian_version ]; then
+        log "This script is intended for Debian-based systems."
+        exit 1
+    fi
+
     log "Installing essential packages..."
     apt-get update
     apt-get install -y curl git zsh less
