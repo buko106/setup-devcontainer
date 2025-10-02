@@ -49,6 +49,9 @@ main() {
     git config --global core.quotepath false
     git config --global core.pager "LESSCHARSET=utf-8 less"
     git config --global push.autoSetupRemote true
+
+    log "Setting up claude-code..."
+    npm install -g @anthropic-ai/claude-code
 }
 
 # Run main function
