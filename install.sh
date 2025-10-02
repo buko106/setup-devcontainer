@@ -26,7 +26,7 @@ main() {
 
     log "Installing essential packages..."
     apt-get update
-    apt-get install -y curl git zsh less
+    apt-get install -y curl git zsh less direnv
 
     log "Changing default shell to zsh..."
     chsh -s /bin/zsh
