@@ -1,3 +1,5 @@
 .setup-devcontainer
 .idea
 .envrc
+.claude
+.serena
