@@ -52,6 +52,10 @@ main() {
 
     log "Setting up claude-code..."
     npm install -g @anthropic-ai/claude-code
+
+    log "Setting up task..."
+    curl -1sLf 'https://dl.cloudsmith.io/public/task/task/setup.deb.sh' | bash
+    apt-get install -y task
 }
 
 # Run main function
