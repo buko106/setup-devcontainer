@@ -24,7 +24,7 @@ autoload -Uz compinit
 compinit -u
 
 # history
-export HISTFILE="${HOME}/.zsh_history"
+export HISTFILE="${HOME}/.history/.zsh_history"
 export HISTSIZE=10000000
 export SAVEHIST=10000000
 setopt HIST_IGNORE_DUPS
