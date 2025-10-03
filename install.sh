@@ -40,11 +40,11 @@ main() {
     git -C "$SETUP_REPO_ROOT" checkout origin/HEAD
 
     log "Setting up static links to dotfiles..."
-    ln -nfs "$SETUP_REPO_ROOT/dotfiles/.zshrc" ~/.zshrc
-    ln -nfs "$SETUP_REPO_ROOT/dotfiles/.p10k.zsh" ~/.p10k.zsh
+    ln -nfs "$SETUP_REPO_ROOT/.zshrc" ~/.zshrc
+    ln -nfs "$SETUP_REPO_ROOT/dotfiles" ~/dotfiles
 
     log "Setting git settings..."
-    ln -nfs "$SETUP_REPO_ROOT/dotfiles/.gitignore_global" ~/.gitignore_global
+    ln -nfs "$SETUP_REPO_ROOT/.gitignore_global" ~/.gitignore_global
     git config --global core.excludesfile ~/.gitignore_global
     git config --global core.quotepath false
     git config --global core.pager "LESSCHARSET=utf-8 less"
