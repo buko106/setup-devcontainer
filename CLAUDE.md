@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a simple shell script repository that provides a setup script for development containers. The main component is `install.sh`, which automates the installation of Claude Code and other development tools in container environments.
+A setup script repository for development containers that automates installation of development tools and dotfiles configuration. **Must be run inside a Docker container on Debian-based systems.**
 
 ## Common Development Commands
 
@@ -25,7 +25,7 @@ find . -name "*.sh" -exec shfmt -w -i 4 {} \;
 
 ### Testing the Installation Script
 ```bash
-# Run the install script locally
+# Run the install script locally (must be in Docker container on Debian)
 ./install.sh
 
 # Run via curl (production usage)
@@ -36,15 +36,16 @@ curl -fsSL https://raw.githubusercontent.com/buko106/setup-devcontainer/main/ins
 
 ### Core Components
 - `install.sh`: Main installation script that sets up development container environment
+  - **Prerequisites**: Must run inside Docker container (checks `/.dockerenv`) on Debian-based systems (checks `/etc/debian_version`)
   - Uses `set -e` for error handling
-  - Includes logging function for timestamped output
-  - Currently installs Claude Code via curl
-  - Designed to be extensible for additional development tools
+  - Includes `log()` function for timestamped output (install.sh:11-13)
+  - Installs essential packages: curl, git, zsh, less, direnv via apt-get
+  - Sets zsh as default shell
+  - Clones/updates this repository into `.setup-devcontainer/` subdirectory
+  - Creates symbolic links for dotfiles: `.zshrc`, `dotfiles/` directory, `.gitignore_global`
+  - Configures git global settings (core.excludesfile, core.quotepath, core.pager, push.autoSetupRemote)
+  - Installs Claude Code via npm global install
+  - Installs Task (taskfile.dev) via Cloudsmith repository
 
 ### Development Tools
-The project uses shellcheck for static analysis and shfmt for formatting shell scripts. These tools ensure code quality and consistent formatting across the repository.
-
-## Repository Structure
-- Single shell script approach - all setup logic is contained in `install.sh`
-- README.md provides installation instructions for development tools
-- IntelliJ IDEA project configuration in `.idea/` directory
+The project uses shellcheck for static analysis and shfmt for formatting shell scripts. These tools ensure code quality and consistent formatting across the repository (4-space indentation).
