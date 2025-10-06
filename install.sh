@@ -12,6 +12,21 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
 }
 
+# Function to set up claude-code
+setup_claude_code() {
+    log "Setting up claude-code..."
+    npm install -g @anthropic-ai/claude-code
+    claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project $(pwd)
+
+    log "Configuring claude-code settings..."
+    mkdir -p ~/.claude
+    if [ ! -f ~/.claude/settings.json ]; then
+        echo '{}' > ~/.claude/settings.json
+    fi
+
+    jq '.statusLine = {"type": "command", "command": "npx ccusage@latest statusline"}' ~/.claude/settings.json > ~/.claude/settings.json.tmp && mv ~/.claude/settings.json.tmp ~/.claude/settings.json
+}
+
 # Main installation function
 main() {
     log "Setting up development container..."
@@ -26,7 +41,7 @@ main() {
 
     log "Installing essential packages..."
     apt-get update
-    apt-get install -y curl git zsh less direnv
+    apt-get install -y curl git zsh less direnv jq
 
     log "Changing default shell to zsh..."
     chsh -s /bin/zsh
@@ -50,8 +65,7 @@ main() {
     git config --global core.pager "LESSCHARSET=utf-8 less"
     git config --global push.autoSetupRemote true
 
-    log "Setting up claude-code..."
-    npm install -g @anthropic-ai/claude-code
+    setup_claude_code
 
     log "Setting up task..."
     curl -1sLf 'https://dl.cloudsmith.io/public/task/task/setup.deb.sh' | bash
