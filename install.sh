@@ -16,15 +16,15 @@ log() {
 setup_claude_code() {
     log "Setting up claude-code..."
     npm install -g @anthropic-ai/claude-code
-    claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project $(pwd)
+    claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project "$(pwd)"
 
     log "Configuring claude-code settings..."
     mkdir -p ~/.claude
     if [ ! -f ~/.claude/settings.json ]; then
-        echo '{}' > ~/.claude/settings.json
+        echo '{}' >~/.claude/settings.json
     fi
 
-    jq '.statusLine = {"type": "command", "command": "npx ccusage@latest statusline"}' ~/.claude/settings.json > ~/.claude/settings.json.tmp && mv ~/.claude/settings.json.tmp ~/.claude/settings.json
+    jq '.statusLine = {"type": "command", "command": "npx ccusage@latest statusline"}' ~/.claude/settings.json >~/.claude/settings.json.tmp && mv ~/.claude/settings.json.tmp ~/.claude/settings.json
 }
 
 # Main installation function
