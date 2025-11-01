@@ -33,6 +33,9 @@ setopt SHARE_HISTORY
 setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 
+# path
+export PATH="$HOME/.local/bin:$PATH"
+
 # alias
 alias ls='ls --color=auto'
 

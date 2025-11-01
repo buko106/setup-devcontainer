@@ -15,7 +15,7 @@ log() {
 # Function to set up claude-code
 setup_claude_code() {
     log "Setting up claude-code..."
-    npm install -g @anthropic-ai/claude-code
+    curl -fsSL https://claude.ai/install.sh | bash
     claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project "$(pwd)"
 
     log "Configuring claude-code settings..."
