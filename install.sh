@@ -13,20 +13,24 @@ log() {
 }
 
 setup_uv() {
-    # Check if uv command exists in PATH
     if command -v uv &>/dev/null; then
-        log "uv command found. Running update..."
         uv self update
     else
-        log "uv command not found. Installing uv..."
+        log "uv command not found. Installing..."
         curl -LsSf https://astral.sh/uv/install.sh | sh
     fi
 }
 
 setup_claude_code() {
     log "Setting up claude-code..."
-    curl -fsSL https://claude.ai/install.sh | bash
-    claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project "$(pwd)"
+    if command -v uv &>/dev/null; then
+        uv self update
+    else
+        log "claude command not found. Installing..."
+        curl -fsSL https://claude.ai/install.sh | bash
+    fi
+
+    claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project "$(pwd)" || true
 
     log "Configuring claude-code settings..."
     mkdir -p ~/.claude
