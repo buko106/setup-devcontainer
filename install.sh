@@ -12,6 +12,17 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
 }
 
+setup_uv() {
+    # Check if uv command exists in PATH
+    if command -v uv &>/dev/null; then
+        log "uv command found. Running update..."
+        uv self update
+    else
+        log "uv command not found. Installing uv..."
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+    fi
+}
+
 setup_claude_code() {
     log "Setting up claude-code..."
     curl -fsSL https://claude.ai/install.sh | bash
@@ -70,6 +81,7 @@ main() {
     git config --global core.pager "LESSCHARSET=utf-8 less"
     git config --global push.autoSetupRemote true
 
+    setup_uv
     setup_claude_code
     setup_task
 }
