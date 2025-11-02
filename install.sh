@@ -12,7 +12,6 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
 }
 
-# Function to set up claude-code
 setup_claude_code() {
     log "Setting up claude-code..."
     curl -fsSL https://claude.ai/install.sh | bash
@@ -25,6 +24,12 @@ setup_claude_code() {
     fi
 
     jq '.statusLine = {"type": "command", "command": "npx ccusage@latest statusline"}' ~/.claude/settings.json >~/.claude/settings.json.tmp && mv ~/.claude/settings.json.tmp ~/.claude/settings.json
+}
+
+setup_task() {
+    log "Setting up task..."
+    curl -1sLf 'https://dl.cloudsmith.io/public/task/task/setup.deb.sh' | bash
+    apt-get install -y task
 }
 
 # Main installation function
@@ -66,10 +71,7 @@ main() {
     git config --global push.autoSetupRemote true
 
     setup_claude_code
-
-    log "Setting up task..."
-    curl -1sLf 'https://dl.cloudsmith.io/public/task/task/setup.deb.sh' | bash
-    apt-get install -y task
+    setup_task
 }
 
 # Run main function
